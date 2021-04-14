@@ -1,0 +1,8 @@
+# Files
+.DS_Store
+
+# Folders
+.idea/
+.nova/
+web/scripts/
+server/node_modules/
