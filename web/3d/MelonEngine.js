@@ -352,6 +352,11 @@ export function getPlayerPosition()
     return me.three.camera.getWorldPosition( new THREE.Vector3() );
 }
 
+export function getPlayerRotation()
+{
+    return me.three.camera.getWorldQuaternion( new THREE.Quaternion() );
+}
+
 export function getPlayerTarget()
 {
     return me.three.controls.target.clone();

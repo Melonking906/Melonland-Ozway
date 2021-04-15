@@ -77,6 +77,7 @@ function playerLogic()
 	{
 		z.player.thirdPerson.modelName = z.html.nameStore.innerHTML;
 		z.player.thirdPerson.model = MELON.spawnObject( z.player.thirdPerson.modelName, 'PlayerThirdPerson' );
+		OZMult.setAvatar( z.player.thirdPerson );
 		z.player.thirdPerson.isSetup = true;
 	}
 
