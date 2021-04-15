@@ -7,23 +7,25 @@ var app = express();
 app.use(express.static("web"));
 
 // Here we serve up our index page
-app.get("/", function(req, res) 
+app.get("/", function(req, res)
 {
-  res.sendFile(path.join(__dirname + "/web/index.html"));
+    res.sendFile(path.join(__dirname + "/web/index.html"));
 });
 
 var server = app.listen(3906, function() 
 {
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log("Web Server listening at http://%s:%s", host, port);
+    var host = server.address().address;
+    var port = server.address().port;
+    
+    console.log("Web Server listening at http://%s:%s", host, port);
 });
 
 // +++++++++++ Web Sockets
 
 const WebSocket = require('ws');
 const socket = new WebSocket.Server({ port: 4906 });
+
+let playerStore = [];
 
 socket.on('listening', ws =>
 {
@@ -40,8 +42,21 @@ socket.on('connection', ws =>
     ws.on('message', message =>
     {
         console.log('LOG: ' + message);
+        
+        let messageData = JSON.parse(message);
+        updateStore( messageData ); // Update player data locally
+        
+        ws.send( JSON.stringify(playerStore) ); // Reply with new player data
     });
 });
+
+// Updates player location info in the store and adds new players if none found.
+function updateStore( messageData )
+{
+    var index = playerStore.findIndex(player => player.clientId == messageData.clientId);
+    if( index === -1 ) { playerStore.push(messageData); return; } // Add a new player and return
+    playerStore[index].sync = messageData.sync; // The sync object contains all synced data
+}
 
 // +++++++++++ Helper Functions
 

@@ -19,7 +19,8 @@ export function multiplayerLoop()
 {
     let multiObject = {};
     multiObject.clientId = mult.clientId;
-    multiObject.playerLocation = MELON.getPlayerPosition();
+    multiObject.sync = {};
+    multiObject.sync.playerLocation = MELON.getPlayerPosition();
     
     mult.connection.send( JSON.stringify(multiObject) );
 }
