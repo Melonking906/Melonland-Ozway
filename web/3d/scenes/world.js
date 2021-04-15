@@ -1,6 +1,7 @@
 "use strict";
 import * as THREE from '../../scripts/three-r127/build/three.module.js';
 import * as MELON from '../MelonEngine.js';
+import * as OZMult from './multiplayer.js';
 
 //+++ Game VarBox +++
 let z = {};
@@ -66,6 +67,7 @@ function setupDone()
 function loop()
 {	
 	playerLogic();
+	OZMult.multiplayerLoop();
 }
 
 //+++ Code Start +++

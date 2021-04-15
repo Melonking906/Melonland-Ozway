@@ -22,7 +22,7 @@ var server = app.listen(3906, function()
 
 // +++++++++++ Web Sockets
 
-const WebSocket = require('ws')
+const WebSocket = require('ws');
 const socket = new WebSocket.Server({ port: 4906 });
 
 socket.on('listening', ws =>
@@ -32,10 +32,25 @@ socket.on('listening', ws =>
 
 socket.on('connection', ws =>
 {
+    // Setup new client
+    let newClientId = getRandomInt( 1, 20000 );
+    ws.send(newClientId);
+    
+    // Handle messages
     ws.on('message', message =>
     {
-        console.log(`Received message => ${message}`);
-    })
-
-    ws.send('ho!');
+        console.log('LOG: ' + message);
+    });
 });
+
+// +++++++++++ Helper Functions
+
+function getRandomInt(min, max)
+{
+    return Math.floor( (Math.random() * max) + min );
+}
+
+function getRandomFloat(min, max)
+{
+    return (Math.random() * max) + min;
+}
