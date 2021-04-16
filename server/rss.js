@@ -28,8 +28,8 @@ function getNewsArticles()
 			let newsEntry = news[i];
 			let article = {};
 			article.title = newsEntry.querySelector('h1').textContent;
-			article.uri = 'https://melonking.net/melon.html#'+newsEntry.id;
-			article.link = 'https://melonking.net/melon.html?z=/home.html';
+			article.uri = 'https://melonking.net/home.html#'+newsEntry.id;
+			article.link = article.uri;
 			article.description = newsEntry.querySelector('p').textContent;
 			
 			//Extra Link setter
