@@ -46,7 +46,7 @@ function spawnWorld()
 	MELON.me.three.camera.rotateY( 1.641593 );
 	
 	var plaza = MELON.spawnObject( 'plaza', 'Plaza', 0.2 );
-	plaza.setScale(0.2);
+	plaza.setScale(0.14);
 }
 
 function startWorld()

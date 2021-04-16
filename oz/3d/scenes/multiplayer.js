@@ -2,20 +2,23 @@
 import * as THREE from '../../scripts/three-r127/build/three.module.js';
 import * as MELON from '../MelonEngine.js';
 
+import * as SETTINGS from '../../settings.js';
+
 export let mult = {};
 
 mult.clientId = -1;
 mult.avatar = {};
 export function setAvatar( avatar ) { mult.avatar = avatar; }  
 
-mult.url = 'ws://localhost:4906';
+mult.url = SETTINGS.s.multiplayer.socketAddress;
+mult.port = SETTINGS.s.multiplayer.socketPort;
 mult.players = [];
 
 mult.clean = {};
 mult.clean.cleanTime = 180;
 mult.clean.lastTime = 0;
 
-mult.connection = new WebSocket(mult.url);
+mult.connection = new WebSocket('wss://'+mult.url+':'+mult.port);
 
 // Call this from the main game loop
 export function multiplayerLoop()

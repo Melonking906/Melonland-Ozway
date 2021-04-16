@@ -200,7 +200,7 @@ export function getStandardControls()
     controls.minDistance = 0;
     controls.maxDistance = 1;
     controls.maxPolarAngle = Math.PI / 1.1;
-    controls.panSpeed = 100;
+    controls.panSpeed = 40;
     controls.keyPanSpeed = 10000;
     controls.autoRotate = false;
     controls.autoRotateSpeed = 0.8;

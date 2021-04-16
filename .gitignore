@@ -4,5 +4,5 @@
 # Folders
 .idea/
 .nova/
-web/scripts/
+oz/scripts/
 server/node_modules/
