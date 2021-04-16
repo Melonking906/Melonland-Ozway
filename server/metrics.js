@@ -8,7 +8,7 @@ mk.metrics.hits = 0;
 mk.metrics.pages = [];
 
 //Read in JSON Metrics
-fs.readFile('./metrics.json', (err, data) => {
+fs.readFile(settings.metricsPath, (err, data) => {
     if(err)
     { 
         console.log(err);
@@ -48,7 +48,7 @@ function doAHit( page )
         mk.metrics.hits = 0;
         mk.metrics.pages = [];
         var jsonMetrics = JSON.stringify(mk.metrics); 
-        fs.writeFile("../metrics.json", jsonMetrics, function (err) {});
+        fs.writeFile(settings.metricsPath, jsonMetrics, function (err) {});
         return "RESET DONE";
     }
 
@@ -77,7 +77,7 @@ function doAHit( page )
     mk.metrics.pages[index].lastHit = hitDate.getTime();
 
     var jsonMetrics = JSON.stringify(mk.metrics); 
-    fs.writeFile("./metrics.json", jsonMetrics, function (err) {});
+    fs.writeFile(settings.metricsPath, jsonMetrics, function (err) {});
 
     return "OK";
 }

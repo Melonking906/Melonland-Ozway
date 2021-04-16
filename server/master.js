@@ -9,10 +9,10 @@ let metrics = require('./metrics.js'); // Melonking.Net Metrics
 
 var app = express();
 
-app.use('/', express.static('web'))
+app.use('/', express.static('../web'))
 
 // Ozway Game Server
-app.use('/oz', express.static('oz'))
+app.use('/oz', express.static('../oz'))
 
 // Melonking.Net Metrics
 app.get('/metrics', function(req, res)
