@@ -28,6 +28,7 @@ app.get('/hit', function(req, res)
 // Melonking.Net RSS
 app.get('/rss', function(req, res)
 {
+	res.setHeader('content-type', 'application/xml');
 	res.send( rss.generate() );
 });
 

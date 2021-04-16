@@ -1,5 +1,5 @@
-# Melonland Ozway Plaza
-Yes I just cant settle on a name...
+# Melonland Ozway
+This is the main backend repo for Melonking.Net and its related junk.
 
 ## Setup
 You'll need to load the npm packages.

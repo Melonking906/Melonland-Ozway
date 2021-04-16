@@ -28,8 +28,17 @@ function getNewsArticles()
 			let newsEntry = news[i];
 			let article = {};
 			article.title = newsEntry.querySelector('h1').textContent;
-			article.link = 'https://melonking.net/melon.html';
+			article.uri = 'https://melonking.net/melon.html#'+newsEntry.id;
+			article.link = 'https://melonking.net/melon.html?z=/home.html';
 			article.description = newsEntry.querySelector('p').textContent;
+			
+			//Extra Link setter
+			let link = newsEntry.querySelector('a');
+			if( link != undefined )
+			{
+				article.link = 'https://melonking.net/'+link.getAttribute('href');
+			}
+			
 			newArticles.push(article);
 		}
 		
@@ -46,13 +55,16 @@ function getNewsArticles()
 function generateRSS()
 {
 	getNewsArticles();
-	var txt = '<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0">';
-	txt += '<channel><title>Melon\'s Lil RSS Feed</title>';
+	var txt = '<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">';
+	txt += '<channel><title>Melon\'s Lil RSS Feed</title><atom:link href="https://brain.melonking.net/rss" rel="self" type="application/rss+xml" />';
 	txt += '<link>https://melonking.net</link><description>News from Melonland!</description>';
+	txt += '<category>Homepage</category><language>en-us</language>';
+	txt += '<image><url>https://melonking.net/images/home.png</url><title>Melon\'s Lil RSS Feed</title><link>https://melonking.net</link></image>';
 	for( let i=0 ; i<rss.cache.articles.length ; i++ )
 	{
 		let article = rss.cache.articles[i];
 		txt += '<item>';
+		txt += '<guid>' + article.uri + '</guid>';
 		txt += '<title>' + article.title + '</title>';
 		txt += '<link>' + article.link + '</link>';
 		txt += '<description>' + article.description + '</description>';
