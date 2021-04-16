@@ -7,13 +7,9 @@ mk.metrics = {};
 mk.metrics.hits = 0;
 mk.metrics.pages = [];
 
-//Read in JSON Metrics
+// Load the saved cache file
 fs.readFile(settings.metricsPath, (err, data) => {
-    if(err)
-    { 
-        console.log(err);
-        return; 
-    }
+    if(err) { console.log(err); return; }
     mk.metrics = JSON.parse(data);
 });
 

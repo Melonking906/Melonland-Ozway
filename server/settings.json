@@ -1,5 +1,6 @@
 {
 	"webPort" : 3000,
 	"socketPort" : 4906,
-	"metricsPath" : "./metrics.json"
+	"metricsPath" : "./metrics.json",
+	"rssPath" : "./rssArticles.json"
 }

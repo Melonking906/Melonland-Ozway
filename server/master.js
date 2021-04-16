@@ -6,6 +6,7 @@ var express = require("express");
 var path = require("path");
 
 let metrics = require('./metrics.js'); // Melonking.Net Metrics
+let rss = require('./rss.js'); // RSS loader
 
 var app = express();
 
@@ -22,6 +23,12 @@ app.get('/metrics', function(req, res)
 app.get('/hit', function(req, res)
 {
 	res.send( metrics.doAHit(req.query.p) );
+});
+
+// Melonking.Net RSS
+app.get('/rss', function(req, res)
+{
+	res.send( rss.generate() );
 });
 
 var server = app.listen( settings.webPort, function() 
