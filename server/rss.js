@@ -36,7 +36,13 @@ function getNewsArticles()
 			let link = newsEntry.querySelector('a');
 			if( link != undefined )
 			{
-				article.link = 'https://melonking.net/'+link.getAttribute('href');
+				let linkText = link.getAttribute('href');
+				if( linkText.includes('https://') ) {
+					article.link = linkText;
+				}
+				else {
+					article.link = 'https://melonking.net/'+linkText;
+				}
 			}
 			
 			newArticles.push(article);
@@ -54,13 +60,12 @@ function getNewsArticles()
 
 function generateRSS()
 {
-	getNewsArticles();
 	var txt = '<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">';
 	txt += '<channel><title>Melon\'s Lil RSS Feed</title><atom:link href="https://brain.melonking.net/rss" rel="self" type="application/rss+xml" />';
 	txt += '<link>https://melonking.net</link><description>News from Melonland!</description>';
 	txt += '<category>Homepage</category><language>en-us</language>';
 	txt += '<image><url>https://melonking.net/images/home.png</url><title>Melon\'s Lil RSS Feed</title><link>https://melonking.net</link></image>';
-	for( let i=0 ; i<rss.cache.articles.length ; i++ )
+	for( let i=rss.cache.articles.length-1 ; i>=0 ; i-- )
 	{
 		let article = rss.cache.articles[i];
 		txt += '<item>';
@@ -73,6 +78,9 @@ function generateRSS()
 	txt += '</channel></rss>';
 	return txt;
 }
+
+// Refresh every hour!
+let refreshLoop = setInterval(getNewsArticles, 1000 * 60 * 60);
 
 module.exports = {
 	generate: function() {
