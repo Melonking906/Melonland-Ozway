@@ -2,11 +2,13 @@ const settings = require('./settings.json');
 // This Script Generates the Melonking.Net RSS newsfeed.
 const fs = require('fs');
 const got = require('got');
+const url = require('url');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
 let rss = {};
-rss.newsURL = 'https://melonking.net/home.html';
+rss.baseURL = 'https://melonking.net/';
+rss.newsURL = rss.baseURL+'home.html';
 rss.cache = {"articles" : []};
 
 // Load the saved cache file
@@ -28,11 +30,17 @@ function getNewsArticles()
 			let newsEntry = news[i];
 			let article = {};
 			article.title = newsEntry.querySelector('h1').textContent;
-			article.uri = 'https://melonking.net/home.html#'+newsEntry.id;
+			article.uri = rss.newsURL+'#'+newsEntry.id;
 			article.link = article.uri;
 			
-			//Main content - h1 is removed
+			//Process content
+			//Remove h1
 			newsEntry.querySelector('h1').remove();
+			//Resolve URLs
+			newsEntry.querySelectorAll('img').forEach(node => node.setAttribute('src', url.resolve(rss.baseURL, node.getAttribute('src'))));
+			newsEntry.querySelectorAll('a').forEach(node => node.setAttribute('href', url.resolve(rss.baseURL, node.getAttribute('href'))));
+			newsEntry.querySelectorAll('iframe').forEach(node => node.setAttribute('src', url.resolve(rss.baseURL, node.getAttribute('src'))));
+			
 			article.description = '<![CDATA[';
 			article.description += newsEntry.innerHTML;
 			article.description += ']]>';
