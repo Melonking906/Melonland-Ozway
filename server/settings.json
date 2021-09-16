@@ -2,5 +2,6 @@
 	"webPort" : 3000,
 	"socketPort" : 4906,
 	"metricsPath" : "./metrics.json",
-	"rssPath" : "./rssArticles.json"
+	"rssPath" : "./rssArticles.json",
+	"adminPassword" : "test"
 }

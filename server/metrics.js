@@ -6,6 +6,7 @@ var mk = {}; //Melonking.Net Master object
 mk.metrics = {};
 mk.metrics.hits = 0;
 mk.metrics.pages = [];
+mk.metrics.lastReset = 0;
 
 // Load the saved cache file
 fs.readFile(settings.metricsPath, (err, data) => {
@@ -18,6 +19,7 @@ function getMetricsHTML()
     var txt = '<html><head><title>Melo-Tek Brain</title></head><body>'
 
     txt += '<h1>Melo-Tek Brain - ONLINE</h1>'
+    txt += '<p>Hit last reset: <strong>' + new Date(mk.metrics.lastReset*1000).toString() + '</strong></p>';
     txt += '<table><tr><th>Page</th><th>Hits</th></tr>'
 
     for( var i=0 ; i<mk.metrics.pages.length ; i++ )
@@ -38,15 +40,18 @@ function getMetricsHTML()
 function doAHit( page )
 {
     if(page == undefined) { res.send("Melo-Tek Internal Hit Service - ONLINE"); return; }
-    if(page == "RESET")
+    if(page == 'RESET-' + settings.adminPassword)
     {
         mk.metrics = {};
         mk.metrics.hits = 0;
         mk.metrics.pages = [];
+        mk.metrics.lastReset = Math.floor(Date.now() / 1000); // Unix date code.
         var jsonMetrics = JSON.stringify(mk.metrics); 
         fs.writeFile(settings.metricsPath, jsonMetrics, function (err) {});
         return "RESET DONE";
     }
+    
+    page = page.replace(/[^\w\s]/gi, ''); // Fix for bored security researchers :P
 
     var hitDate = new Date(); 
     mk.metrics.hits++;
