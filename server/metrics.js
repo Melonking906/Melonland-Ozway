@@ -19,9 +19,12 @@ function getMetricsHTML()
     var txt = '<html><head><title>Melo-Tek Brain</title></head><body>'
 
     txt += '<h1>Melo-Tek Brain - ONLINE</h1>'
-    txt += '<p>Hit last reset: <strong>' + new Date(mk.metrics.lastReset*1000).toString() + '</strong></p>';
+    txt += '<p>Hits since: <strong>' + new Date(mk.metrics.lastReset*1000).toString() + '</strong></p>';
+    txt += '<p>Total hits: <strong>' + mk.metrics.hits + '</strong></p>';
     txt += '<table><tr><th>Page</th><th>Hits</th></tr>'
-
+    
+    mk.metrics.pages.sort((a, b) => parseFloat(b.hits) - parseFloat(a.hits)); // Sort results
+    
     for( var i=0 ; i<mk.metrics.pages.length ; i++ )
     {
         var page = mk.metrics.pages[i];
