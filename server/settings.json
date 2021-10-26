@@ -1,7 +1,10 @@
 {
-	"webPort" : 3000,
-	"socketPort" : 4906,
-	"metricsPath" : "../metrics.json",
-	"rssPath" : "../rssArticles.json",
-	"adminPassword" : "test"
+    "webPort": 3000,
+    "socketPort": 4906,
+    "metricsPath": "../metrics.json",
+    "rssPath": "../rssArticles.json",
+    "adminPassword": "test",
+    "mailUser": "test@test.com",
+    "mailPass": "testtest",
+    "mailSender": "webmaster@melonking.net"
 }
